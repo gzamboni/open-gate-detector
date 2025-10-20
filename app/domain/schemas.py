@@ -22,7 +22,6 @@ class GateCheckRequest(BaseModel):
     ip_address: str = Field(..., description="IP address of the camera")
     port: Optional[int] = Field(554, description="RTSP port (default: 554)")
 
-    """Request model for gate status check."""
     model_config = {
         "json_schema_extra": {
             "example": {
@@ -40,7 +39,6 @@ class GateStatusResponse(BaseModel):
     status: Optional[str] = Field(None, description="Gate status (Open, Closed, or null if error)")
     message: str = Field(..., description="Status message or error description")
 
-    """Response model for gate status."""
     model_config = {
         "json_schema_extra": {
             "example": {
@@ -55,7 +53,6 @@ class HealthResponse(BaseModel):
     """Response model for health check."""
     status: str = Field(..., description="Health status of the service")
 
-    """Response model for health check."""
     model_config = {
         "json_schema_extra": {
             "example": {

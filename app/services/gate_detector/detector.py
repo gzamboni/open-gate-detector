@@ -39,7 +39,10 @@ class OpenCVDetectionService(DetectionService):
 
             num_vertical_lines = 0
             if lines is not None:
-                for _, theta in lines[:, 0]:
+                for i in range(len(lines)):
+                    # Each line is a 1x2 array containing rho and theta
+                    # We only need theta for vertical line detection
+                    theta = lines[i][0][1]
                     # Filter for vertical lines (theta is close to 0 or pi)
                     if np.abs(theta) < np.pi / 180 * 10 or np.abs(theta - np.pi) < np.pi / 180 * 10:
                         num_vertical_lines += 1

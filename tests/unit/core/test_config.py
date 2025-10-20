@@ -30,9 +30,9 @@ class TestSettings:
         # Create settings
         settings = Settings()
 
-        # Test with default value
+        # Test with no environment variable - should be None
         with patch.dict(os.environ, {}, clear=True):
-            assert settings.host == "0.0.0.0"
+            assert settings.host is None
 
         # Test with environment variable
         with patch.dict(os.environ, {"HOST": "localhost"}, clear=True):
@@ -106,7 +106,7 @@ class TestSettings:
         with patch.dict(os.environ, {}, clear=True):
             settings_dict = settings.dict()
             assert settings_dict["api_token"] == "default-secure-token"
-            assert settings_dict["host"] == "0.0.0.0"
+            assert settings_dict["host"] is None
             assert settings_dict["port"] == 8000
             assert "rtsp://{username}:{password}@{ip_address}:{port}" in settings_dict["rtsp_format"]
             assert settings_dict["debug"] is False

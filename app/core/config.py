@@ -23,7 +23,7 @@ class Settings:
     @property
     def host(self):
         """Get the host from environment."""
-        return os.environ.get("HOST", "0.0.0.0")
+        return os.environ.get("HOST")
 
     @property
     def port(self):
@@ -48,8 +48,6 @@ class Settings:
     def line_threshold(self):
         """Get the line threshold from environment."""
         return int(os.environ.get("LINE_THRESHOLD", "10"))
-
-        # This section is unreachable and duplicates the properties above
 
     def dict(self) -> Dict[str, Any]:
         """Return settings as a dictionary."""

@@ -15,6 +15,7 @@ from app.services.gate_detector.detector import OpenCVGateDetectorService
 # Global variable to hold the service instance for testing
 _gate_detector_service_instance = None
 
+
 def get_gate_detector_service() -> GateDetectorService:
     """
     Get an instance of the gate detector service.
@@ -24,12 +25,11 @@ def get_gate_detector_service() -> GateDetectorService:
     Returns:
         An instance of a class implementing the GateDetectorService interface.
     """
-    # This global statement is needed to modify the global variable
-    # pylint: disable=global-variable-not-assigned
-    global _gate_detector_service_instance
+    # Check if we have a mock service for testing
     if _gate_detector_service_instance is not None:
         return _gate_detector_service_instance
     return OpenCVGateDetectorService()
+
 
 def set_gate_detector_service_for_testing(service: GateDetectorService | None) -> None:
     """

@@ -52,6 +52,10 @@ app = create_application()
 
 
 if __name__ == "__main__":
+    # If HOST environment variable is not set, we need to raise an error
+    if settings.host is None:
+        raise ValueError("HOST environment variable must be set")
+
     uvicorn.run(
         "app.main:app",
         host=settings.host,
