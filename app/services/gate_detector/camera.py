@@ -3,6 +3,7 @@ Camera service implementation.
 
 This module provides functionality for interacting with IP cameras via RTSP.
 """
+# pylint: disable=no-member
 import cv2
 import numpy as np
 

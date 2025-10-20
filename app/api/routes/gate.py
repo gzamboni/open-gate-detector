@@ -3,9 +3,9 @@ API routes for gate-related endpoints.
 
 This module defines the API routes for gate-related operations.
 """
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter
 
-from app.api.dependencies import Authenticated, GateDetector
+from app.api.dependencies import authenticated, gate_detector
 from app.domain.models import CameraCredentials
 from app.domain.schemas import GateCheckRequest, GateStatusResponse
 
@@ -15,8 +15,8 @@ router = APIRouter(prefix="/gate", tags=["gate"])
 @router.post("/check", response_model=GateStatusResponse)
 def check_gate(
     request: GateCheckRequest,
-    authenticated: Authenticated,
-    gate_detector: GateDetector
+    _authenticated: authenticated,  # pylint: disable=unused-argument
+    detector: gate_detector
 ):
     """
     Check if the gate is open or closed.
@@ -42,7 +42,7 @@ def check_gate(
     )
 
     # Check gate status
-    result = gate_detector.check_gate_status(credentials)
+    result = detector.check_gate_status(credentials)
 
     # Convert domain model to response model
     return GateStatusResponse(

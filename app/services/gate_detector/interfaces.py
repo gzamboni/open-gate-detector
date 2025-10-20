@@ -4,11 +4,12 @@ Interfaces for the gate detector service.
 This module defines interfaces that gate detector services must implement.
 """
 from abc import ABC, abstractmethod
-from typing import Tuple, Optional, Any
+from typing import Any
 
 from app.domain.models import CameraCredentials, GateStatus, GateStatusResult
 
 
+# pylint: disable=too-few-public-methods
 class GateDetectorService(ABC):
     """Interface for gate detector services."""
 
@@ -23,7 +24,7 @@ class GateDetectorService(ABC):
         Returns:
             A GateStatusResult containing the gate status and a message.
         """
-        pass
+        # Abstract method implementation will be provided by subclasses
 
 
 class CameraService(ABC):
@@ -40,7 +41,7 @@ class CameraService(ABC):
         Returns:
             The RTSP URI.
         """
-        pass
+        # Abstract method implementation will be provided by subclasses
 
     @abstractmethod
     def capture_frame(self, rtsp_uri: str) -> Any:
@@ -57,7 +58,7 @@ class CameraService(ABC):
             CameraConnectionError: If the camera connection fails.
             FrameCaptureError: If frame capture fails.
         """
-        pass
+        # Abstract method implementation will be provided by subclasses
 
 
 class DetectionService(ABC):
@@ -74,4 +75,4 @@ class DetectionService(ABC):
         Returns:
             The detected gate status.
         """
-        pass
+        # Abstract method implementation will be provided by subclasses

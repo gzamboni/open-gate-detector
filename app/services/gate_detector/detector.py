@@ -3,7 +3,7 @@ Gate detector service implementation.
 
 This module provides functionality for detecting gate status using computer vision.
 """
-import cv2
+import cv2  # pylint: disable=no-member
 import numpy as np
 
 from app.core.config import settings
@@ -13,6 +13,7 @@ from app.services.gate_detector.interfaces import GateDetectorService, Detection
 from app.services.gate_detector.camera import OpenCVCameraService
 
 
+# pylint: disable=too-few-public-methods
 class OpenCVDetectionService(DetectionService):
     """Detection service implementation using OpenCV."""
 
@@ -29,6 +30,7 @@ class OpenCVDetectionService(DetectionService):
         Raises:
             GateDetectionError: If gate detection fails.
         """
+        # pylint: disable=no-member
         try:
             gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
             edges = cv2.Canny(gray, 50, 150, apertureSize=3)
@@ -47,13 +49,13 @@ class OpenCVDetectionService(DetectionService):
 
             if num_vertical_lines > line_threshold:
                 return GateStatus.CLOSED
-            else:
-                return GateStatus.OPEN
+            return GateStatus.OPEN
 
         except Exception as e:
-            raise GateDetectionError(f"Error detecting gate status: {str(e)}")
+            raise GateDetectionError(f"Error detecting gate status: {str(e)}") from e
 
 
+# pylint: disable=too-few-public-methods
 class OpenCVGateDetectorService(GateDetectorService):
     """Gate detector service implementation using OpenCV."""
 
@@ -79,5 +81,5 @@ class OpenCVGateDetectorService(GateDetectorService):
 
             return GateStatusResult.success(status)
 
-        except Exception as e:
+        except Exception as e:  # pylint: disable=broad-exception-caught
             return GateStatusResult.error(str(e))

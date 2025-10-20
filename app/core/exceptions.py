@@ -4,7 +4,7 @@ Custom exceptions for the application.
 This module defines custom exceptions that can be raised by the application
 and handled appropriately.
 """
-from typing import Any, Dict, Optional
+# No imports needed for these exception classes
 
 
 class GateDetectorException(Exception):

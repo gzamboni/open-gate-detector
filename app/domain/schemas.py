@@ -3,9 +3,10 @@ Pydantic schemas for the gate detector application.
 
 These schemas define the structure of data for API requests and responses.
 """
-from pydantic import BaseModel, Field
-from typing import Optional
 from enum import Enum
+from typing import Optional
+
+from pydantic import BaseModel, Field
 
 
 class GateStatusEnum(str, Enum):
@@ -21,8 +22,9 @@ class GateCheckRequest(BaseModel):
     ip_address: str = Field(..., description="IP address of the camera")
     port: Optional[int] = Field(554, description="RTSP port (default: 554)")
 
-    class Config:
-        schema_extra = {
+    """Request model for gate status check."""
+    model_config = {
+        "json_schema_extra": {
             "example": {
                 "username": "admin",
                 "password": "password",
@@ -30,6 +32,7 @@ class GateCheckRequest(BaseModel):
                 "port": 554
             }
         }
+    }
 
 
 class GateStatusResponse(BaseModel):
@@ -37,22 +40,26 @@ class GateStatusResponse(BaseModel):
     status: Optional[str] = Field(None, description="Gate status (Open, Closed, or null if error)")
     message: str = Field(..., description="Status message or error description")
 
-    class Config:
-        schema_extra = {
+    """Response model for gate status."""
+    model_config = {
+        "json_schema_extra": {
             "example": {
                 "status": "Open",
                 "message": "Gate status: Open"
             }
         }
+    }
 
 
 class HealthResponse(BaseModel):
     """Response model for health check."""
     status: str = Field(..., description="Health status of the service")
 
-    class Config:
-        schema_extra = {
+    """Response model for health check."""
+    model_config = {
+        "json_schema_extra": {
             "example": {
                 "status": "healthy"
             }
         }
+    }

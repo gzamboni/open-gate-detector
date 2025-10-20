@@ -14,7 +14,6 @@ class Settings:
     def __init__(self):
         """Initialize settings with default values and load from environment."""
         # We'll use properties to dynamically load values from environment
-        pass
 
     @property
     def api_token(self):
@@ -36,7 +35,8 @@ class Settings:
         """Get the RTSP format from environment."""
         return os.environ.get(
             "RTSP_FORMAT",
-            "rtsp://{username}:{password}@{ip_address}:{port}/cam/realmonitor?channel=8&subtype=0&unicast=true&proto=Onvif"
+            "rtsp://{username}:{password}@{ip_address}:{port}/cam/realmonitor"
+            "?channel=8&subtype=0&unicast=true&proto=Onvif"
         )
 
     @property
@@ -49,21 +49,7 @@ class Settings:
         """Get the line threshold from environment."""
         return int(os.environ.get("LINE_THRESHOLD", "10"))
 
-        # Server settings
-        self.host = os.environ.get("HOST", "0.0.0.0")
-        self.port = int(os.environ.get("PORT", "8000"))
-
-        # RTSP settings
-        self.rtsp_format = os.environ.get(
-            "RTSP_FORMAT",
-            "rtsp://{username}:{password}@{ip_address}:{port}/cam/realmonitor?channel=8&subtype=0&unicast=true&proto=Onvif"
-        )
-
-        # Application settings
-        self.debug = os.environ.get("DEBUG", "").lower() in ("true", "1", "t", "yes")
-
-        # Gate detector settings
-        self.line_threshold = int(os.environ.get("LINE_THRESHOLD", "10"))
+        # This section is unreachable and duplicates the properties above
 
     def dict(self) -> Dict[str, Any]:
         """Return settings as a dictionary."""

@@ -15,6 +15,7 @@ from app.core.exceptions import (
 )
 
 
+# pylint: disable=unused-argument
 async def gate_detector_exception_handler(
     request: Request, exc: GateDetectorException
 ) -> JSONResponse:

@@ -24,6 +24,8 @@ def get_gate_detector_service() -> GateDetectorService:
     Returns:
         An instance of a class implementing the GateDetectorService interface.
     """
+    # This global statement is needed to modify the global variable
+    # pylint: disable=global-variable-not-assigned
     global _gate_detector_service_instance
     if _gate_detector_service_instance is not None:
         return _gate_detector_service_instance
@@ -38,10 +40,12 @@ def set_gate_detector_service_for_testing(service: GateDetectorService | None) -
     Args:
         service: The mock service to use, or None to reset.
     """
+    # pylint: disable=global-statement
     global _gate_detector_service_instance
     _gate_detector_service_instance = service
 
 
 # Define common dependencies
-Authenticated = Annotated[bool, Depends(verify_token)]
-GateDetector = Annotated[GateDetectorService, Depends(get_gate_detector_service)]
+# pylint: disable=invalid-name
+authenticated = Annotated[bool, Depends(verify_token)]
+gate_detector = Annotated[GateDetectorService, Depends(get_gate_detector_service)]

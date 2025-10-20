@@ -20,7 +20,7 @@ def create_application() -> FastAPI:
         The configured FastAPI application.
     """
     # Create FastAPI app
-    app = FastAPI(
+    fastapi_app = FastAPI(
         title="Gate Status API",
         description="API to check if a gate is open or closed",
         version="1.0.0",
@@ -30,7 +30,7 @@ def create_application() -> FastAPI:
     )
 
     # Add CORS middleware
-    app.add_middleware(
+    fastapi_app.add_middleware(
         CORSMiddleware,
         allow_origins=["*"],
         allow_credentials=True,
@@ -39,20 +39,19 @@ def create_application() -> FastAPI:
     )
 
     # Register exception handlers
-    register_exception_handlers(app)
+    register_exception_handlers(fastapi_app)
 
     # Include routers
-    app.include_router(gate.router)
-    app.include_router(health.router)
+    fastapi_app.include_router(gate.router)
+    fastapi_app.include_router(health.router)
 
-    return app
+    return fastapi_app
 
 
 app = create_application()
 
 
 if __name__ == "__main__":
-    """Run the API server when the script is executed directly."""
     uvicorn.run(
         "app.main:app",
         host=settings.host,
