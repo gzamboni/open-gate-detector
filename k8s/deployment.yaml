@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: open-gate-detector
+  labels:
+    app: open-gate-detector
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: open-gate-detector
+  template:
+    metadata:
+      labels:
+        app: open-gate-detector
+    spec:
+      containers:
+      - name: open-gate-detector
+        image: gcr.io/gemini-demo/open-gate-detector:latest # <-- IMPORTANT: Replace with your image registry and tag
+        ports:
+        - containerPort: 8000
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8000
+          initialDelaySeconds: 5
+          periodSeconds: 5
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 8000
+          initialDelaySeconds: 5
+          periodSeconds: 5

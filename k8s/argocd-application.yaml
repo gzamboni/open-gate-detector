@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: open-gate-detector
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/gemini-demo/open-gate-detector.git # <-- IMPORTANT: Replace with your git repository URL
+    targetRevision: HEAD
+    path: k8s
+  destination:
+    server: https://192.168.0.31:6443
+    namespace: homeassistant
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
