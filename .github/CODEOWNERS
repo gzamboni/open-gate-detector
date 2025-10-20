@@ -1,0 +1,19 @@
+# These owners will be the default owners for everything in
+# the repo. Unless a later match takes precedence,
+# @gzamboni will be requested for review when someone opens a pull request.
+*       @gzamboni
+
+# Gate detector core functionality
+/gate_detector.py @gzamboni
+
+# API implementation
+/api.py @gzamboni
+
+# Tests
+/tests/ @gzamboni
+
+# Kubernetes configuration
+/k8s/ @gzamboni
+
+# CI/CD workflows
+/.github/workflows/ @gzamboni
