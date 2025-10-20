@@ -13,6 +13,41 @@ The Open Gate Detector is a FastAPI-based service that connects to IP cameras vi
 - **Authentication**: Secures API access with Bearer token authentication
 - **Kubernetes Ready**: Includes Kubernetes manifests for deployment with ArgoCD
 - **Docker Support**: Containerized for easy deployment
+- **SOLID Architecture**: Follows SOLID principles for maintainable and extensible code
+
+## Project Structure
+
+The project follows a clean architecture approach with separation of concerns:
+
+```
+open_gate_detector/
+├── app/                      # Main application package
+│   ├── api/                  # API layer
+│   │   ├── dependencies.py   # API dependencies
+│   │   ├── errors.py         # Error handlers
+│   │   └── routes/           # API routes
+│   │       ├── gate.py       # Gate-related endpoints
+│   │       └── health.py     # Health check endpoints
+│   ├── core/                 # Core application code
+│   │   ├── config.py         # Configuration management
+│   │   ├── security.py       # Security utilities
+│   │   └── exceptions.py     # Custom exceptions
+│   ├── domain/               # Domain models and business logic
+│   │   ├── models.py         # Domain models
+│   │   └── schemas.py        # Pydantic schemas
+│   ├── services/             # Service layer
+│   │   └── gate_detector/    # Gate detector service
+│   │       ├── detector.py   # Gate detection logic
+│   │       ├── camera.py     # Camera interaction
+│   │       └── interfaces.py # Service interfaces
+│   └── main.py               # Application entry point
+├── tests/                    # Tests directory
+│   ├── unit/                 # Unit tests
+│   │   ├── api/              # API tests
+│   │   └── services/         # Service tests
+│   └── integration/          # Integration tests
+└── run.py                    # Entry point script
+```
 
 ## How It Works
 
@@ -24,7 +59,7 @@ The Open Gate Detector is a FastAPI-based service that connects to IP cameras vi
 
 ## API Endpoints
 
-### POST /check-gate
+### POST /gate/check
 
 Checks the status of a gate using the provided camera credentials.
 
@@ -94,7 +129,7 @@ Authorization: Bearer your-api-token
 
 4. Run the application:
    ```
-   python api.py
+   python run.py
    ```
 
 The API will be available at http://localhost:8000.
@@ -119,9 +154,10 @@ The project includes comprehensive unit tests with 100% code coverage. To run th
    ```
 
 The test suite includes:
-- Tests for all gate detector functions with mocked OpenCV dependencies
+- Tests for all gate detector services with mocked OpenCV dependencies
 - API endpoint tests with authentication validation
 - Error handling tests
+- Integration tests
 
 ### Docker Deployment
 
@@ -151,6 +187,11 @@ The project includes Kubernetes manifests for deployment:
 The following environment variables can be configured:
 
 - `API_TOKEN`: Authentication token for API access (default: "default-secure-token")
+- `HOST`: Host to bind the server to (default: "0.0.0.0")
+- `PORT`: Port to bind the server to (default: 8000)
+- `RTSP_FORMAT`: Format string for RTSP URIs (default: "rtsp://{username}:{password}@{ip_address}:{port}/cam/realmonitor?channel=8&subtype=0&unicast=true&proto=Onvif")
+- `DEBUG`: Enable debug mode (default: false)
+- `LINE_THRESHOLD`: Threshold for the number of vertical lines to consider a gate closed (default: 10)
 
 ## Technical Details
 
