@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: open-gate-detector
-          image: ghcr.io/gzamboni/open-gate-detector:latest
+          image: ghcr.io/gzamboni/open-gate-detector:main
           ports:
             - containerPort: 8000
           livenessProbe:
