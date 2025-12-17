@@ -1,6 +1,6 @@
 # Use an official Python runtime as a parent image
 # This base image supports both x86_64 and arm64 architectures
-FROM --platform=$TARGETPLATFORM python:3.11-slim
+FROM --platform=$TARGETPLATFORM python:3.14-slim
 
 # Add build argument for platform targeting
 ARG TARGETPLATFORM
